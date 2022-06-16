@@ -1,0 +1,58 @@
+{
+	"version": "1.0.0",
+	"license": "ISC",
+	"main": "dist/index.js",
+	"typings": "dist/index.d.ts",
+	"private": "false",
+	"files": [
+		"dist",
+		"src"
+	],
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"start": "tsdx watch",
+		"build": "tsdx build",
+		"test": "tsdx test",
+		"lint": "tsdx lint",
+		"prepare": "tsdx build",
+		"size": "size-limit",
+		"analyze": "size-limit --why",
+		"check-publish": "npm pack && rimraf ./*.tgz"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "tsdx lint"
+		}
+	},
+	"name": "@chewhx/paynowqr",
+	"author": "Chew Han Xiang <hello@chewhx.com>",
+	"module": "dist/paynowqr.esm.js",
+	"description": "Singapore Paynow QR generator for node.js, javascript, typescript",
+	"size-limit": [
+		{
+			"path": "dist/paynowqr.cjs.production.min.js",
+			"limit": "10 KB"
+		},
+		{
+			"path": "dist/paynowqr.esm.js",
+			"limit": "10 KB"
+		}
+	],
+	"devDependencies": {
+		"@size-limit/preset-small-lib": "^7.0.8",
+		"@typescript-eslint/eslint-plugin": "^5.28.0",
+		"@typescript-eslint/parser": "^5.28.0",
+		"eslint": "^8.17.0",
+		"husky": "^8.0.1",
+		"rimraf": "^3.0.2",
+		"size-limit": "^7.0.8",
+		"tsdx": "^0.14.1",
+		"tslib": "^2.4.0",
+		"typescript": "^4.7.3"
+	},
+	"dependencies": {
+		"dayjs": "^1.11.3"
+	}
+}
