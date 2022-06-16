@@ -30,6 +30,10 @@
 	"author": "Chew Han Xiang <hello@chewhx.com>",
 	"module": "dist/paynowqr.esm.js",
 	"description": "Singapore Paynow QR generator for node.js, javascript, typescript",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chewhx/paynowqr.git"
+	},
 	"size-limit": [
 		{
 			"path": "dist/paynowqr.cjs.production.min.js",
