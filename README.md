@@ -1,38 +1,70 @@
 # @chewhx/paynowqr
 
-**Rewritten with Typescript so the package comes with types**
+Generate Singapore PayNow QR Code for business use.
 
-Singapore Paynow QR generator for node.js and javascript. Works on both browser and nodejs.
-
-If you have any questions please open an issue or drop me an email at hello@chewhx.com
-
-All credits and efforts to the original contributors.
-
-Project bootstraped with [tsdx](https://tsdx.io/)
+This package is written in Typescript, bootstraped with [tsdx](https://tsdx.io/).
 
 ## Installation
 
 ```bash
-$ npm i @chewhx/paynowqr
+$ npm install @chewhx/paynowqr
 ```
+
+## Issues and Requests
+
+Please drop me a message at hello@chewhx.com or open an issue in this repository.
 
 ## Usage
 
-```javascript
-import PaynowQR from '@chewhx/paynowqr';
+### Javascript
 
-//Create a PaynowQR object
-let qrcode = new PaynowQR({
-  uen: '201403121W', //Required: UEN of company
-  amount: 500, //Specify amount of money to pay.
-  editable: true, //Whether or not to allow editing of payment amount. Defaults to false if amount is specified
-  expiry: '20201231', //Set an expiry date for the Paynow QR code (YYYYMMDD). If omitted, defaults to 5 years from current time.
-  refNumber: 'TQINV-10001', //Reference number for Paynow Transaction. Useful if you need to track payments for recouncilation.
-  company: 'ACME Pte Ltd.', //Company name to embed in the QR code. Optional.
+```javascript
+import { paynowSgUen } from '@chewhx/paynowqr';
+
+const code = paynowSgUen({
+	uen: '201403121W',
+	amount: 1.99,
+	isEditable: false,
+	expiry: '20221231',
+	transactionReference: 'TQINV-10001',
+	company: 'ACME Pte Ltd.',
 });
 
-//Outputs the qrcode to a UTF-8 string format, which can be passed to a QR code generation script to generate the paynow QR
-let QRstring = qrcode.output();
+// Output UTF-8 data string
+const qrDataString = qr.qrDataString();
+
+// Output Base64 image string which represents QR Code of the data string
+const qrImageString = qr.qrBase64Image();
+```
+
+### Typescript
+
+```typescript
+import { paynowSgUen, TOption } from '@chewhx/paynowqr';
+
+export interface TOptions {
+	uen: string;
+	amount: number;
+	isEditable: boolean;
+	expiry?: string;
+	transactionReference?: string;
+	company?: string;
+}
+
+const code = paynowSgUen({
+	uen: '201403121W',
+	amount: 1.99,
+	isEditable: false,
+	expiry: '20221231',
+	transactionReference: 'TQINV-10001',
+	company: 'ACME Pte Ltd.',
+}: TOption);
+
+// Output UTF-8 data string
+const qrDataString : string = qr.qrDataString();
+
+// Output Base64 image string which represents QR Code of the data string
+const qrImageString : Promise<string> = await qr.qrBase64Image();
 ```
 
 ## Links
@@ -40,21 +72,15 @@ let QRstring = qrcode.output();
 - 🐙 [GitHub](https://github.com/chewhx)
 - 🖥️ [Website](https://www.chewhx.com)
 
-## Credits
+## References
 
-Source code from from: https://github.com/ThunderQuoteTeam/PaynowQR
-
-Original code referenced from:
-https://gist.github.com/chengkiang/7e1c4899768245570cc49c7d23bc394c
+- Original code adapted from: https://github.com/ThunderQuoteTeam/PaynowQR
+- Singapore PayNow Merchant Data Specifications:
+  - http://www.playgrow.sg/TEST/PayNowQR/
+  - https://github.com/ThunderQuoteTeam/PaynowQR/blob/production/src/paynowqr.js
+- EMV® QR Code Specification for Payment Systems (EMV QRCPS) Merchant-Presented Mode: https://www.emvco.com/wp-content/uploads/documents/EMVCo-Merchant-Presented-QR-Specification-v1.1.pdf
 
 See also:
 
-https://github.com/jtaych/PayNow-QR-Javascript
-
-https://github.com/mindmedia/paynow.py
-
-Developed by ThunderQuote (https://www.thunderquote.com)
-
-Was looking around for various ways to implement dynamic SGQR codes for payment over Javascript, however couldn't find any that worked with UEN based payments.
-
-Feel free to report any issues and feature requests!
+- https://github.com/jtaych/PayNow-QR-Javascript
+- https://github.com/mindmedia/paynow.py
